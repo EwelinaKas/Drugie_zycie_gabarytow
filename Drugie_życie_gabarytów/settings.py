@@ -40,7 +40,7 @@ INSTALLED_APPS = [
 
     # local apps
 
-    'registration_app.apps.RegistrationAppConfig',
+    'main_app.apps.MainAppConfig',
 ]
 
 MIDDLEWARE = [
