@@ -1,0 +1,21 @@
+{% extends 'main_app/header.html' %}
+
+{% block title %} Registration {% endblock title %}
+
+{% block content %}
+
+  <h3>Register</h3>
+
+  <form method="POST">
+  {% csrf_token %}
+
+  {{register_form}}
+
+  <input type="submit" name="Create User">
+
+    {{register_form.errors}}
+    <p class="text-center">Already have an account? <a href="/login">Login</a></p>
+
+  </form>
+
+{% endblock %}

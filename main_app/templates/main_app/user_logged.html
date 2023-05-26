@@ -1,0 +1,21 @@
+{% extends 'main_app/header.html' %}
+
+{% block title %} Main Page {% endblock title %}
+
+{% block content %}
+
+    {% if user.is_authenticated %}
+
+    <h2>Hello {{user.username.capitalize}}! :)</h2>
+
+    <a href="{% url 'main_app:logout' %}"><button type="submit">Logout</button></a>
+
+    {% else %}
+        <a href="{% url 'main_app:home' %}">Login</a>
+
+
+    {% endif %}
+
+
+
+{% endblock %}

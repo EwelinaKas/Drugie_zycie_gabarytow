@@ -1,0 +1,23 @@
+{% extends 'main_app/header.html' %}
+
+{% block title %} Login {% endblock title %}
+
+{% block content %}
+
+    <div>
+        <h1>Login</h1>
+        <form method="POST">
+            {% csrf_token %}
+
+            <input type="text" name="username" placeholder="Username">
+            <input type="password" name="password" placeholder="Password">
+            <button type="submit"> Login </button>
+    </div>
+
+        {% for message in messages %}
+            <p>{{message}}</p>
+        {% endfor %}
+
+
+
+{% endblock %}
