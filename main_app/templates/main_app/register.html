@@ -14,7 +14,8 @@
   <input type="submit" name="Create User">
 
     {{register_form.errors}}
-    <p class="text-center">Already have an account? <a href="/login">Login</a></p>
+
+    <p class="text-center">Already have an account? <a href="{% url 'main_app:login' %}">Login</a></p>
 
   </form>
 
