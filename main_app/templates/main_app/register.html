@@ -1,10 +1,21 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
 {% extends 'main_app/header.html' %}
 
 {% block title %} Registration {% endblock title %}
 
 {% block content %}
 
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="./main_app/static/css/main.css">
+</head>
+
+<body id="title">
   <h3>Register</h3>
+</body>
 
   <form method="POST">
   {% csrf_token %}
@@ -20,3 +31,4 @@
   </form>
 
 {% endblock %}
+</html>
