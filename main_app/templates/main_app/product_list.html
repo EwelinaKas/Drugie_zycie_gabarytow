@@ -1,0 +1,24 @@
+{% extends 'accounts/header.html' %}
+
+{% block title %} Lista produktów {% endblock title %}
+
+{% block content %}
+
+{% for product in products %}
+
+{{product.name}}
+
+<li>
+{{product.description}}
+</li>
+<li>
+  {{product.price}} PLN
+</li>
+
+
+
+{% endfor %}
+
+
+
+{% endblock %}

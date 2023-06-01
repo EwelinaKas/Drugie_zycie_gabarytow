@@ -1,0 +1,33 @@
+{% extends 'accounts/header.html' %}
+
+{% block title %} Registration {% endblock title %}
+
+{% block content %}
+
+<style>
+    h2{
+        text-align: left;
+    }
+    .special_form{
+        text-align: left;
+        margin: 1cm;
+    }
+</style>
+
+
+  <h2>Register</h2>
+
+      <form method="POST" class="special_form">
+      {% csrf_token %}
+
+      {{register_form}}
+
+        <input type="submit" name="Create User">
+
+            {{register_form.errors}}
+
+          <p class="text-center">Already have an account? <a href="{% url 'accounts:login' %}">Login</a></p>
+
+      </form>
+
+{% endblock %}

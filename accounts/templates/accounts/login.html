@@ -1,4 +1,4 @@
-{% extends 'main_app/header.html' %}
+{% extends 'accounts/header.html' %}
 
 {% block title %} Login {% endblock title %}
 
@@ -12,12 +12,12 @@
             <input type="text" name="username" placeholder="Username">
             <input type="password" name="password" placeholder="Password">
             <button type="submit"> Login </button>
+        </form>
     </div>
 
         {% for message in messages %}
             <p>{{message}}</p>
         {% endfor %}
-
 
 
 {% endblock %}

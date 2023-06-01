@@ -1,0 +1,10 @@
+body{
+    /*background: linear-gradient(paleturquoise, gray);*/
+    background: -webkit-repeating-linear-gradient(50grad,aliceblue,lightblue);
+    text-align: center;
+    margin: 25px;
+}
+
+button{
+
+}

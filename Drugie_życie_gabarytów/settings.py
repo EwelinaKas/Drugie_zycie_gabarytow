@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # local apps
 
     'main_app.apps.MainAppConfig',
+    'accounts.apps.AccountsConfig'
 ]
 
 MIDDLEWARE = [
@@ -126,4 +127,4 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# AUTH_USER_MODEL = 'main_app.User'
+AUTH_USER_MODEL = 'main_app.User'

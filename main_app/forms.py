@@ -1,10 +1,19 @@
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+from django import forms
+
+from .models import Product
 
 
-class CreateUserForm(UserCreationForm):
+class AddProduct(forms.ModelForm):
     class Meta:
-        model = User
-        fields = ("username", "email", "password1", "password2")
+        model = Product
+        fields = [
+            'name',
+            'description',
+            'price',
+            'photo',
+            'category'
 
+        ]
 
+    def __repr__(self):
+        return self.fields
