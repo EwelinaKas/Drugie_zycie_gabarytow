@@ -4,27 +4,30 @@
 
 {% block content %}
 
-<head>
-    <title></title>
-    <link rel="stylesheet" type="text/css" href="./accounts/static/css/main.css">
-</head>
+<style>
+    h2{
+        text-align: left;
+    }
+    .special_form{
+        text-align: left;
+        margin: 1cm;
+    }
+</style>
 
-<body id="title">
-  <h3>Register</h3>
-</body>
 
-  <form method="POST">
-  {% csrf_token %}
+  <h2>Register</h2>
 
-  {{register_form}}
+      <form method="POST" class="special_form">
+      {% csrf_token %}
 
-  <input type="submit" name="Create User">
+      {{register_form}}
 
-    {{register_form.errors}}
+        <input type="submit" name="Create User">
 
-    <p class="text-center">Already have an account? <a href="{% url 'accounts:login' %}">Login</a></p>
+            {{register_form.errors}}
 
-  </form>
+          <p class="text-center">Already have an account? <a href="{% url 'accounts:login' %}">Login</a></p>
+
+      </form>
 
 {% endblock %}
-</html>

@@ -1,15 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>About Us</title>
-</head>
-<body>
+{% extends 'accounts/header.html' %}
 
-HELLO WORLD ! :)
+{% block title %} Registration {% endblock title %}
+
+{% block content %}
+
+
+DRUGIE ŻYCIE GABARYTÓW
 
 <a href="{% url 'accounts:login' %}"><button type="submit">Login</button></a>
 <a href="{% url 'accounts:register' %}"><button type="submit">Register here</button></a>
 
-</body>
-</html>
+
+
+{% endblock %}
