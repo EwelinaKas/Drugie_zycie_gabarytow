@@ -1,8 +1,4 @@
-<!DOCTYPE html>
-
-<html lang="en">
-
-{% extends 'main_app/header.html' %}
+{% extends 'accounts/header.html' %}
 
 {% block title %} Registration {% endblock title %}
 
@@ -10,7 +6,7 @@
 
 <head>
     <title></title>
-    <link rel="stylesheet" type="text/css" href="./main_app/static/css/main.css">
+    <link rel="stylesheet" type="text/css" href="./accounts/static/css/main.css">
 </head>
 
 <body id="title">
@@ -26,7 +22,7 @@
 
     {{register_form.errors}}
 
-    <p class="text-center">Already have an account? <a href="{% url 'main_app:login' %}">Login</a></p>
+    <p class="text-center">Already have an account? <a href="{% url 'accounts:login' %}">Login</a></p>
 
   </form>
 
