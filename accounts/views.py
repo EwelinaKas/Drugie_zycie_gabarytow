@@ -29,16 +29,11 @@ def login_request(request):
 
         if user is not None:
             login(request, user)
-            return redirect('accounts:user_view')
+            return redirect('main_app:home')
         else:
             messages.info(request, 'Wrong username or password')
 
     return render(request, 'accounts/login.html')
-
-
-@login_required
-def user_view(request):
-    return render(request, 'accounts/user_logged.html')
 
 
 def logout_request(request):
