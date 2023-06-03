@@ -24,7 +24,7 @@ def product_detail_view(request, pk):
 @login_required(login_url='accounts:login')
 def add_product(request):
 
-    form = AddProduct(request.POST or None)
+    form = AddProduct(request.POST or None, request.FILES)
     if form.is_valid():
         form = form.save(commit=False)
         form.user = request.user

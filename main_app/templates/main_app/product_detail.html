@@ -7,8 +7,10 @@
 <p>Dodane przez: {{product.user}}</p>
 <p class="quotations"> {{product.description}}</p>
 <p class="created">Utworzono: {{product.created_at}} </p>
-<p>Zdjecie: {{product.photo}} </p>
+{% if product.photo %}
 
+<img src="{{product.photo.url}}">
+{% endif %}
 <a href="{% url 'main_app:auctions' %}"><button type="submit">Powrót do listy</button></a>
 
 {% endblock %}
