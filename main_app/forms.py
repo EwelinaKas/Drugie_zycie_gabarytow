@@ -11,7 +11,9 @@ class AddProduct(forms.ModelForm):
             'description',
             'price',
             'photo',
-            'category'
+            'category',
+
+
 
         ]
 

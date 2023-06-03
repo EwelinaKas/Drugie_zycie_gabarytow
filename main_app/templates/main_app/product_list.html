@@ -4,21 +4,25 @@
 
 {% block content %}
 
+<h2>Lista produktów </h2>
 {% for product in products %}
+{{product.name}}<a href="{% url 'main_app:product_detail_view' product.id %}"><button>Detale aukcji</button></a>
 
-{{product.name}}
-
-<li>
-{{product.description}}
-</li>
 <li>
   {{product.price}} PLN
 </li>
 
-
-
 {% endfor %}
 
+
+<form method="POST">
+  {% csrf_token %}
+  {{form.as_p}}
+  <input type="submit" value="Dodaj produkt">
+
+</form>
+
+<!--<a href="{% url 'main_app:add' %}"><button type="submit">Dodaj produkt</button></a>-->
 
 
 {% endblock %}
