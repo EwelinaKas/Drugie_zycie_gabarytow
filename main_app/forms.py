@@ -1,5 +1,4 @@
 from django import forms
-
 from .models import Product
 
 
@@ -11,7 +10,7 @@ class AddProduct(forms.ModelForm):
             'description',
             'price',
             'photo',
-            'category',
+            'category'
 
 
 

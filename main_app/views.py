@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
-from main_app.models import Product, User
-from accounts.forms import CreateUserForm
+from main_app.models import Product
 from django.contrib.auth.decorators import login_required
 from .forms import AddProduct
 
@@ -24,6 +23,7 @@ def product_detail_view(request, pk):
 
 @login_required(login_url='accounts:login')
 def add_product(request):
+
     form = AddProduct(request.POST or None)
     if form.is_valid():
         form = form.save(commit=False)
@@ -31,7 +31,20 @@ def add_product(request):
         form.save()
         return redirect('main_app:auctions')
 
-    return render(request, 'main_app/product_list.html', context={'form': form})
+    return render(request, 'main_app/add_product.html', context={'form': form})
+
+
+
+
+
+
+    # form = AddProduct(request.POST or None)
+    # if form.is_valid():
+    #     form = form.save(commit=False)
+    #     form.user = request.user
+    #     form.save()
+    #
+    # return render(request, 'main_app/home.html', context={'form': form})
 
 
 

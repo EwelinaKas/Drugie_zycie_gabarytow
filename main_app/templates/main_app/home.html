@@ -1,6 +1,6 @@
 {% extends 'accounts/header.html' %}
 
-{% block title %} Registration {% endblock title %}
+{% block title %} Strona główna {% endblock title %}
 
 {% block content %}
 
@@ -12,18 +12,16 @@ DRUGIE ŻYCIE GABARYTÓW
 <h2>Hello {{user.username.capitalize}}! :)</h2>
     {% endif %}
 
-<a href="{% url 'accounts:logout' %}"><button type="submit">Logout</button></a>
-
-
 
 
 <a href="{% url 'accounts:login' %}"><button type="submit">Login</button></a>
+<a href="{% url 'accounts:logout' %}"><button type="submit">Logout</button></a>
 <a href="{% url 'accounts:register' %}"><button type="submit">Register here</button></a>
 
 <a href="{% url 'main_app:auctions' %}"><button type="submit">Lista produktów </button></a>
 
-<a href="{% url 'main_app:add' %}"><button type="submit">Dodaj produkt</button></a>
+<a href="{% url 'main_app:add' %}"><button type="submit">Dodaj produkt </button></a>
 
-
+</form>
 
 {% endblock %}

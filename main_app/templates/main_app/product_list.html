@@ -14,15 +14,6 @@
 
 {% endfor %}
 
-
-<form method="POST">
-  {% csrf_token %}
-  {{form.as_p}}
-  <input type="submit" value="Dodaj produkt">
-
-</form>
-
-<!--<a href="{% url 'main_app:add' %}"><button type="submit">Dodaj produkt</button></a>-->
-
+<a href="{% url 'main_app:add' %}"><button type="submit">Dodaj produkt </button></a>
 
 {% endblock %}
