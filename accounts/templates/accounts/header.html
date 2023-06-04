@@ -1,18 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-            {% load static %}
-            <link rel="stylesheet" href="{% static './main_app/css/main.css'%}">
-            <title> {% block title %} {% endblock title%} </title>
-
-        </head>
-    <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    {% load static %}
+    <link rel="stylesheet" href="{% static './main_app/css/main.css'%}">
+    <title> {% block title %} {% endblock title%} </title>
+</head>
+<body>
+    <nav>
+        <ul class="navigation-box">
+            <div class="navigation">
+                <div class="home"><a href={% url 'main_app:home' %}>Home</a></div>
+                <div class="about-us"><a href="#">O nas</a></div>
+                <div class="contact"><a href="#">Kontakt</a></div>
+                <div class="user"><a href="#">Mój profil</a></div>
+            </div>
+        </ul>
+    </nav>
+<script src="./main_app/js/script.js"></script>
 
     {% block content%}
 
     {% endblock %}
 
-    </body>
+</body>
 </html>

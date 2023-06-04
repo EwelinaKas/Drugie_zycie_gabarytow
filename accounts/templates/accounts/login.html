@@ -1,23 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
 {% extends 'accounts/header.html' %}
 
-{% block title %} Login {% endblock title %}
+{% block title %} Log in {% endblock title %}
 
 {% block content %}
-
-    <div>
-        <h1>Login</h1>
-        <form method="POST">
-            {% csrf_token %}
-
-            <input type="text" name="username" placeholder="Username">
-            <input type="password" name="password" placeholder="Password">
-            <button type="submit"> Login </button>
-        </form>
+<body>
+<div class="form-structor">
+    <div class="login">
+        <h1 class="form-title" id="login">Log in</h1>
+        <div class="form-holder">
+            <form method="POST">
+                {% csrf_token %}
+                <input type="text" class="input" name="username" placeholder="Username">
+                <input type="password" class="input" name="password" placeholder="Password">
+                <button class="submit-btn"> Log in </button>
+            </form>
+        </div>
     </div>
-
-        {% for message in messages %}
+</div>
+<div class="wrong-login">
+{% for message in messages %}
             <p>{{message}}</p>
         {% endfor %}
-
+</div>
+</body>
 
 {% endblock %}
+</html>
