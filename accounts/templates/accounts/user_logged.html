@@ -6,13 +6,14 @@
 
 {% block content %}
 <body>
-<div class="logged">
-    <div>
-        <!--    {% if user.is_authenticated %}--><h2>Hello {{user.username.capitalize}}!</h2>
+<div class="logged-structor">
+    <div class="logged">
+        <!--{% if user.is_authenticated %}-->
+            <h1 class="logged-title"> Hello {{user.username.capitalize}}! </h1>
     </div>
     <div class="logout">
-        <a href="{% url 'accounts:logout' %}"></a>
-        <button type="submit" class="logout-btn">Log out</button>
+        <a href="{% url 'main_app:home' %}">
+            <button class="logout-btn" type="submit">Log out</button></a>
     </div>
 
 <!--{% else %}-->

@@ -6,15 +6,15 @@
 
 {% block content %}
 <body>
-<div class="home-welcome">
-    <div class="home-title">
-        DRUGIE ŻYCIE GABARYTÓW
+<div class="home-structor">
+    <div class="home">
+        <h2 class="home-title"> DRUGIE ŻYCIE GABARYTÓW </h2>
     </div>
-    <div class="home-btn">
-        <a class="login" href="{% url 'accounts:login' %}">
-            <button type="submit">Log in</button></a>
-        <a class="signup" href="{% url 'accounts:register' %}">
-            <button type="submit">Sign up</button></a>
+    <div class="home-holder">
+        <a href="{% url 'accounts:login' %}">
+            <button class="login-btn" type="submit">Log in</button></a>
+        <a href="{% url 'accounts:register' %}">
+            <button class="signup-btn" type="submit">Sign up</button></a>
     </div>
 </div>
 </body>
