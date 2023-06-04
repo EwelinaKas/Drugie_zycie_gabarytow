@@ -6,7 +6,7 @@
 
 <h2>Lista produktów </h2>
 {% for product in products %}
-{{product.name}}<a href="{% url 'main_app:product_detail_view' product.id %}"><button>Detale aukcji</button></a>
+{{product.name}}<a href="{% url 'main_app:product_detail_view' product.id %}"><button>Details</button></a>
 
 <li>
   {{product.price}} PLN
@@ -14,6 +14,6 @@
 
 {% endfor %}
 
-<a href="{% url 'main_app:add' %}"><button type="submit">Dodaj produkt </button></a>
-<a href="{% url 'main_app:home' %}"><button>Powrót do głównej</button></a>
+<a href="{% url 'main_app:add' %}"><button type="submit">Add product </button></a>
+<a href="{% url 'main_app:home' %}"><button>Back to main</button></a>
 {% endblock %}
