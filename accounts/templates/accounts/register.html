@@ -1,33 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
 {% extends 'accounts/header.html' %}
 
 {% block title %} Registration {% endblock title %}
 
 {% block content %}
-
+<body>
 <style>
-    h2{
-        text-align: left;
-    }
     .special_form{
         text-align: left;
         margin: 1cm;
     }
 </style>
-
-
-  <h2>Register</h2>
-
-      <form method="POST" class="special_form">
-      {% csrf_token %}
-
-      {{register_form}}
-
-        <input type="submit" name="Create User">
-
+<div>
+    <div>
+        <h2>Sign up</h2>
+    </div>
+    <div>
+        <form method="POST" class="special_form">
+        {% csrf_token %}
+        {{register_form}}
+            <input type="submit" name="Create User">
             {{register_form.errors}}
-
-          <p class="text-center">Already have an account? <a href="{% url 'accounts:login' %}">Login</a></p>
-
-      </form>
-
+        </form>
+        <div class="login-question">
+              <p>Already have an account?</p>
+              <a class="login" href="{% url 'accounts:login' %}">
+                  <button type="submit">Log in</button>
+              </a>
+        </div>
+    </div>
+</div>
 {% endblock %}
+</body>
+</html>
+
