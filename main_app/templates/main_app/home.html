@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 {% extends 'accounts/header.html' %}
 
-{% block title %} Registration {% endblock title %}
+{% block title %} Main {% endblock title %}
 
 {% block content %}
+
+
+{% if user.is_authenticated %}
+<h2>Hello {{user.username.capitalize}}! :)</h2>
+{% endif %}
+
 <body>
 <div class="home-structor">
     <div class="home-container">
@@ -13,12 +20,15 @@
     <div class="home-holder">
         <a href="{% url 'accounts:login' %}">
             <button class="login-btn" type="submit">Log in</button></a>
+        <a href="{% url 'accounts:logout' %}">
+            <button class="logout-btn" type="submit">Log out</button></a>
         <a href="{% url 'accounts:register' %}">
             <button class="signup-btn" type="submit">Sign up</button></a>
-        <a href="#">
+        <a href="{% url 'main_app:auctions' %}">
             <button class="auction-btn" type="submit">Auctions</button></a>
     </div>
 </div>
 </body>
+
 {% endblock %}
 </html>

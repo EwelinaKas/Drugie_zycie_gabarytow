@@ -1,0 +1,16 @@
+{% extends 'accounts/header.html' %}
+
+{% block title %} Dodaj produkt{% endblock title %}
+
+
+{% block content %}
+
+<form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{form.as_p}}
+
+  <input type="submit" value="Dodaj produkt">
+
+</form>
+
+{% endblock %}
