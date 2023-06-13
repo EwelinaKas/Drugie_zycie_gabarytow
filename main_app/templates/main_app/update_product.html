@@ -1,0 +1,17 @@
+{% extends 'accounts/header.html' %}
+
+{% block title %} Update product {% endblock title %}
+
+{% block content %}
+
+
+<form method="POST">
+    {% csrf_token %}
+    {{update_form.as_p}}
+    <input type="submit" value="Update">
+
+</form>
+
+
+
+{% endblock %}

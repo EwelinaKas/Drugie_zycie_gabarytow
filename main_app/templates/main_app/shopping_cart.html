@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends 'accounts/header.html' %}
+
+{% block title %} Shopping cart {% endblock title %}
+
+{% block content %}
+
+<h2 style="text-align: center">Products in your basket</h2>
+
+<div>
+{% for item in show_cart %}
+<ol>
+   <li> {{item}}</li>
+</ol>
+{% endfor %}
+</div>
+
+
+<a href="{% url 'main_app:cart_view' %}"><button type="submit" > Przejdź do realizacji transakcji </button></a>
+
+
+{% endblock %}
+</html>

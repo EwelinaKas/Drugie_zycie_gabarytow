@@ -10,11 +10,12 @@ class AddProduct(forms.ModelForm):
             'description',
             'price',
             'photo',
-            'category'
-
-
-
+            'category',
         ]
 
     def __repr__(self):
         return self.fields
+
+
+
+
