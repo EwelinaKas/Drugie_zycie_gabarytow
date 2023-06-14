@@ -11,15 +11,15 @@
 
 <div>
 {% for item in show_cart %}
-<ol>
+
    <li> {{item}}</li>
-</ol>
+
 {% endfor %}
 </div>
 
 
 <a href="{% url 'main_app:cart_view' %}"><button type="submit" > Przejdź do realizacji transakcji </button></a>
-
+<a href="{% url 'main_app:auctions' %}"><button type="submit" > Wróć do listy produktów </button></a>
 
 {% endblock %}
 </html>

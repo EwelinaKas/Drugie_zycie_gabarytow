@@ -46,35 +46,51 @@ def get_user_shopping_cart(request):
 
     return cart
 
+
 @login_required
 def add_to_shopping_cart(request, pk):
     cart = get_user_shopping_cart(request)
     product = Product.objects.get(id=pk)
     show_cart = ShoppingCartItem.objects.filter(cart_id=cart)
 
+    # JESLI KOSZYK ITEM ISTNIEJE TO DODAJE PRODUKTY, JEDNOCZEŚNIE ZMNIEJSZAM O 1 ILOSĆ PRODUKTÓW Z BAZY
+
     try:
         cart_item = ShoppingCartItem.objects.get(product_item=product, cart_id=cart)
+        product.quantity -= 1
+        product.save()
+
         if cart_item in show_cart:
             cart_item.qty += 1
         cart_item.save()
 
-        cart_item.save()
+    # JESLI KOSZYK ITEM NIE ISTNIEJE TO TWORZY SIĘ, ILOSC JAK POWYZEJ ZMNIEJSZA SIE O 1
     except ShoppingCartItem.DoesNotExist:
         cart_item = ShoppingCartItem.objects.create(product_item=product, cart_id=cart)
+        product.quantity -= 1
+        product.save()
         cart_item.save()
 
     context = {'cart': cart, 'product': product, 'cart_item': cart_item, 'show_cart': show_cart}
 
     return render(request, 'main_app/shopping_cart.html', context=context)
 
+
 @login_required
 def cart_view(request):
     cart = get_user_shopping_cart(request)
     show_cart = ShoppingCartItem.objects.filter(cart_id=cart)
     order_total = Decimal(0.0)
+
     for item in show_cart:
         order_total += item.product_item.price * item.qty
-    return render(request, 'main_app/cart_view.html', context={'show_cart': show_cart, 'order_total': order_total})
+
+    buy = buy_now(request)
+    if buy:
+        return render(request, 'main_app/order_complete.html')
+
+    return render(request, 'main_app/cart_view.html',
+                  context={'show_cart': show_cart, 'order_total': order_total})
 
 
 @login_required
@@ -96,4 +112,16 @@ def update_product(request, pk):
         update_form.save()
         return redirect('main_app:auctions')
 
+
+def buy_now(request):
+
+    cart = get_user_shopping_cart(request)
+    show_cart = ShoppingCartItem.objects.filter(cart_id=cart)
+
+    if request.method == 'POST':
+        bought = request.POST.get('buy')
+        if bought:
+            show_cart.delete()
+
+        return redirect('main_app:auctions')
 
