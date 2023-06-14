@@ -1,0 +1,13 @@
+{% extends 'accounts/header.html' %}
+
+{% block title %} Your products {% endblock title %}
+
+{% block content %}
+
+{% for prod in product %}
+
+{{prod}}<a href="{% url 'main_app:update_product' prod.id %}"><button>Update product details</button></a>
+
+{% endfor %}
+
+{% endblock %}

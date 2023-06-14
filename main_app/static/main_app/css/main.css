@@ -208,23 +208,34 @@ body{
 }
 
 .home {
-  width: 25%;
+  width: 20%;
   float: left;
 }
 
 .about-us {
-  width: 25%;
+  width: 20%;
+  float: left;
+}
+
+.auctions_view{
+  width: 20%;
   float: left;
 }
 
 .contact {
-  width: 25%;
+  width: 20%;
   float: left;
 }
 
 .user {
-  width: 25%;
+  width: 20%;
   float: left;
+}
+
+.cart_view{
+  width: 20%;
+  float: left;
+
 }
 
 /* HEADER END*/

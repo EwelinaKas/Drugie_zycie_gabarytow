@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     {% load static %}
-    <link rel="stylesheet" href="{% static './main_app/css/main.css'%}">
+    <link rel="stylesheet" href="{% static 'main_app/css/main.css/'%}">
     <title> {% block title %} {% endblock title%} </title>
 </head>
 <body>
@@ -12,13 +12,15 @@
         <ul class="navigation-box">
             <div class="navigation">
                 <div class="home"><a href="{% url 'main_app:home' %}">Home</a></div>
+                <div class="auctions_view"><a href="{% url 'main_app:auctions' %}">Auctions</a></div>
                 <div class="about-us"><a href="#">About us</a></div>
                 <div class="contact"><a href="#">Contact</a></div>
-                <div class="user"><a href="#">Our team</a></div>
+
+                <div class="cart_view"><a href="{% url 'main_app:cart_view' %}">Shopping cart</a></div>
             </div>
         </ul>
     </nav>
-<script src="./main_app/js/script.js"></script>
+<!--<script src="./main_app/js/script.js"></script>-->
 
     {% block content%}
 

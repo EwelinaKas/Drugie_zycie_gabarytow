@@ -5,8 +5,11 @@
 {% block content %}
 
 <h2>Lista produktów </h2>
+
+<ol>
 {% for product in products %}
 {{product.name}}<a href="{% url 'main_app:product_detail_view' product.id %}"><button>Details</button></a>
+
 
 <li>
   {{product.price}} PLN
@@ -14,6 +17,10 @@
 
 {% endfor %}
 
+  </ol>
+
 <a href="{% url 'main_app:add' %}"><button type="submit">Add product </button></a>
 <a href="{% url 'main_app:home' %}"><button>Back to main</button></a>
+<a href="{% url 'main_app:user_products' %}"><button>Your products</button></a>
+
 {% endblock %}
