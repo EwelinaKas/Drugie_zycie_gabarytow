@@ -3,23 +3,33 @@
 {% block title %} Lista produktów {% endblock title %}
 
 {% block content %}
-<div>
+
 <h2>Lista produktów </h2>
+
+<!--WYSZUKIWANIE PO KATEGORIACH-->
+<div style="list-style-type: none">
+{% for category in categories %}
+<li><a href="/auctions/?category={{category.id}}">{{category.name}}</a></li>
+{% endfor %}
+
+{% for product in products %}
+{% endfor %}
 </div>
 
 
+<!--LISTA WSZYSTKICH PRODUKTÓW-->
 <div style="margin-top: 2cm; font-size: large">
 <ul style="list-style-type: none">
 {% for product in products %}
 {{product.name}}
 Ilość: {{product.quantity}}
 <a href="{% url 'main_app:product_detail_view' product.id %}"><button>Details</button></a>
-<li>Cena: {{product.price}} PLN
-</li>
-    <li>
-    {% if product.photo %}
+<li>Cena: {{product.price}} PLN</li>
+
+ <li>  {% if product.photo %}
 <img src="{{product.photo.url}}" style="max-width: 1cm; max-height: 1cm; position: revert">
 </li>
+
 {% endif %}
 {% endfor %}
 </ul>
@@ -40,7 +50,7 @@ Ilość: {{product.quantity}}
 </div>
 
 
-
+<!--WYSZUKIWANIE PO NAZWIE PRODUKTU-->
 <form action="{% url 'main_app:search' %}" role="search">
     <div class="form-group">
         <input type="text" class="form-control" placeholder="Search" name="q" value="{{ search_query }}">

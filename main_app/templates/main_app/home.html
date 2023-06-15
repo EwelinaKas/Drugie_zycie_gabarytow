@@ -1,18 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-
 {% extends 'accounts/header.html' %}
 
 {% block title %} Main {% endblock title %}
 
 {% block content %}
 
-
-<!--{% if user.is_authenticated %}-->
-<!--<h2>Hello {{user.username.capitalize}}! :)</h2>-->
-<!--{% endif %}-->
-
 <body>
+
+<div style="margin-bottom: 600px">
+{% if user.is_authenticated %}
+<h2>Cześć {{user.username.capitalize}}! :)</h2>
+{% endif %}
+</div>
+
 <div class="home-structor">
     <div class="home-container">
         <h2 class="home-title"> DRUGIE ŻYCIE GABARYTÓW </h2>
@@ -31,4 +30,3 @@
 </body>
 
 {% endblock %}
-</html>

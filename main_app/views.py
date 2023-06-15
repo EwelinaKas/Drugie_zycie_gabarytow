@@ -13,7 +13,14 @@ def home(request):
 
 def auction_view(request):
     products = Product.objects.all()
-    return render(request, 'main_app/product_list.html', context={'products': products})
+    categories = Category.get_all_categories()
+    category_id = request.GET.get('category')
+    if category_id:
+        products = Product.get_all_products_by_category_id(category_id)
+    else:
+        products = Product.objects.all()
+
+    return render(request, 'main_app/product_list.html', context={'products': products, 'categories': categories})
 
 
 def product_detail_view(request, pk):
@@ -120,13 +127,11 @@ def buy_now(request):
         return redirect('main_app:order_complete')
 
 
-def search_by_category(request):
+def search_by_name(request):
     search_query = request.GET.get('q')
-    results = Category.objects.filter(name__icontains=search_query)
-    # category = Category.objects.all()[0]
-    # prodcat = Product.objects.filter(['category'])
+    results = Product.objects.filter(name__icontains=search_query)
 
-    return render(request, 'main_app/search.html', context={'results': results } )
+    return render(request, 'main_app/search.html', context={'results': results})
 
 
 def delete_product(request, pk):
@@ -156,5 +161,16 @@ def delete_product(request, pk):
 #             cart_item.delete()
 #
 #     return redirect('main_app:auctions')
+
+
+# def categories_search(request):
+#
+#     categories = Category.get_all_categories()
+#     category_id = request.GET.get('category')
+#     if category_id:
+#         products = Product.get_all_products_by_category_id(category_id)
+#     else:
+#         products = Product.objects.all()
+#     return render(request, 'main_app/categories.html', context={'categories': categories, 'products':products})
 
 

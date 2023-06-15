@@ -1,9 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
 {% extends 'accounts/header.html' %}
-
-
 
 {% block title %} Shopping cart {% endblock title %}
 
@@ -16,32 +11,24 @@
 <div>
 
 
-<form method="POST">
-  {% csrf_token %}
-    <input type="submit" name="buy" value="BUY NOW" style="margin-left: 3cm">
-    <input type="submit" name="remove" value="CANCEL">
-</form>
+    <form method="POST">
+      {% csrf_token %}
+        <input type="submit" name="buy" value="BUY NOW" style="margin-left: 3cm">
+        <input type="submit" name="remove" value="CANCEL">
+    </form>
 
 
-{% for item in show_cart %}
+    {% for item in show_cart %}
+    <li> {{item}}</li>
+    {{item.qty}}
+    {% endfor %}
 
-   <li> {{item}}</li>
-   {{item.qty}}
-
-{% endfor %}
 </div>
-
 
 
 <div style="padding: 25px; text-align: center; position: absolute; margin-top: 7cm">
 <h2>Total order</h2>
 {{order_total}} PLN
-
 </div>
 
-
-
-
-
 {% endblock %}
-</html>

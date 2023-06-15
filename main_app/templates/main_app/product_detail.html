@@ -4,31 +4,29 @@
 
 {% block content %}
 
-<div style="margin-top: 2cm; text-align: center">
+
 <p>Added by: {{product.user}}</p>
 <p class="quotations"> {{product.description}}</p>
 <p class="created">Created: {{product.created_at}} </p>
+
 {% if product.photo %}
-
-<img src="{{product.photo.url}}" style="max-width: 10cm; max-height: 15cm">
-
+    <img src="{{product.photo.url}}" style="max-width: 10cm; max-height: 15cm">
 {% endif %}
-</div>
+
 
 
 {% if product.quantity > 0 %}
 <a href="{% url 'main_app:add_to_shopping_cart' product.id %}"><button type="submit">Add to cart </button></a>
 {% else %}
-
-
-<div style="margin-top: 2cm; text-align: center; font-size: large">
 {% for message in messages %}
 <p>{{message}}</p>
 {% endfor %}
-</div>
-
 {% endif %}
 
-<a href="{% url 'main_app:auctions' %}"><button type="submit">Go back to list</button></a>
+
+
+<a href="{% url 'main_app:auctions' %}"><button type="submit">Wróć do listy wszystkich produktów</button></a>
+<button type="button" onclick="history.back()"> Wróć do listy wyszukiwanych</button>
+
 
 {% endblock %}

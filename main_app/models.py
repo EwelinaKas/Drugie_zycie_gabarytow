@@ -19,6 +19,14 @@ class Product(models.Model):
     def __str__(self):
         return f' {self.name}, {self.price}'
 
+    @staticmethod
+    def get_all_products_by_category_id(category_id):
+        if category_id:
+            return Product.objects.filter (category=category_id)
+        else:
+            return Product.objects.all()
+
+
 
 class Category(models.Model):
     parent_category_id = models.ForeignKey('Category', on_delete=models.CASCADE, null=True, blank=True)
@@ -26,16 +34,9 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
-
-
-# class ProductItem(models.Model):
-#     product = models.ForeignKey('Product', on_delete=models.CASCADE, null=True)
-#     qty_in_stock = models.IntegerField()
-#     product_image = models.ImageField(blank=True)
-#     price = models.DecimalField(max_digits=10, decimal_places=2)
-#
-#     def __str__(self):
-#         return str(self.product)
+    @staticmethod
+    def get_all_categories():
+        return Category.objects.all()
 
 
 class ShoppingCart(models.Model):

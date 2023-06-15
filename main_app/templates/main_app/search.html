@@ -1,19 +1,16 @@
 {% extends 'accounts/header.html' %}
 
-{% block title %} Lista produktów {% endblock title %}
+{% block title %} Wyszukane produkty {% endblock title %}
 
 {% block content %}
 
 <ul>
 {% for prod in results %}
-
-
 <li style="list-style-type: none">
-{{prod}}
+<a href="{% url 'main_app:product_detail_view' prod.id %}">{{prod}}</a>
 </li>
 {% endfor %}
 </ul>
-
 
 
 {% if not results %}
