@@ -1,0 +1,17 @@
+{% extends 'accounts/header.html' %}
+
+{% block title %} Usuwanie produktu {% endblock title %}
+
+{% block content %}
+
+<h2> Czy na pewno chcesz usunąć ten produkt? {{product.name}}</h2>
+
+<form method="POST">
+  {% csrf_token %}
+  <input type="submit" name="confirm" value="Usuń">
+  <input type="submit" name="stop" value="Anuluj">
+
+</form>
+
+
+{% endblock %}

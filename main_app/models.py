@@ -20,8 +20,6 @@ class Product(models.Model):
         return f' {self.name}, {self.price}'
 
 
-
-
 class Category(models.Model):
     parent_category_id = models.ForeignKey('Category', on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=100)
@@ -58,7 +56,7 @@ class ShoppingCartItem(models.Model):
 
 class Variation(models.Model):
 
-    VAR_CHOICES = (('material', 'material'), ('size', 'size'))
+    VAR_CHOICES = (('materiał', 'materiał'), ('rozmiar', 'rozmiar'))
 
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
     name = models.CharField(max_length=100, choices=VAR_CHOICES)

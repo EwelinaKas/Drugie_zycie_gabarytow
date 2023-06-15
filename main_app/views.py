@@ -1,11 +1,9 @@
 from django.shortcuts import render, redirect
-from main_app.models import Product, ShoppingCart, ShoppingCartItem
+from main_app.models import Product, ShoppingCart, ShoppingCartItem, Category
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import AddProduct
 from decimal import Decimal
-
-# Create your views here.
 
 
 def home(request):
@@ -56,19 +54,14 @@ def add_to_shopping_cart(request, pk):
     product = Product.objects.get(id=pk)
     show_cart = ShoppingCartItem.objects.filter(cart_id=cart)
 
-    # JESLI KOSZYK ITEM ISTNIEJE TO DODAJE PRODUKTY, JEDNOCZEŚNIE ZMNIEJSZAM O 1 ILOSĆ PRODUKTÓW Z BAZY
-
     try:
         cart_item = ShoppingCartItem.objects.get(product_item=product, cart_id=cart)
-
         product.quantity -= 1
         product.save()
-
         if cart_item in show_cart:
             cart_item.qty += 1
         cart_item.save()
 
-    # JESLI KOSZYK ITEM NIE ISTNIEJE TO TWORZY SIĘ, ILOSC JAK POWYZEJ ZMNIEJSZA SIE O 1
     except ShoppingCartItem.DoesNotExist:
         cart_item = ShoppingCartItem.objects.create(product_item=product, cart_id=cart)
         product.quantity -= 1
@@ -76,7 +69,6 @@ def add_to_shopping_cart(request, pk):
         cart_item.save()
 
     context = {'cart': cart, 'product': product, 'cart_item': cart_item, 'show_cart': show_cart}
-
     return render(request, 'main_app/shopping_cart.html', context=context)
 
 
@@ -85,13 +77,12 @@ def cart_view(request):
     cart = get_user_shopping_cart(request)
     show_cart = ShoppingCartItem.objects.filter(cart_id=cart)
     order_total = Decimal(0.0)
-
-    for item in show_cart:
-        order_total += item.product_item.price * item.qty
-
     buy = buy_now(request)
     if buy:
         return render(request, 'main_app/order_complete.html')
+
+    for item in show_cart:
+        order_total += item.product_item.price * item.qty
 
     return render(request, 'main_app/cart_view.html',
                   context={'show_cart': show_cart, 'order_total': order_total})
@@ -101,13 +92,12 @@ def cart_view(request):
 def users_products(request):
 
     product = Product.objects.filter(user=request.user)
-
     return render(request, 'main_app/user_products.html', context={'product':product})
 
 
 def update_product(request, pk):
     product_to_update = Product.objects.get(id=pk)
-    update_form = AddProduct(request.POST or None, instance=product_to_update)
+    update_form = AddProduct(request.POST or None, request.FILES or None, instance=product_to_update)
     if request.method == 'GET':
         return render(request, 'main_app/update_product.html',
                       context={'update_form': update_form, 'product_to_update': product_to_update})
@@ -124,13 +114,47 @@ def buy_now(request):
 
     if request.method == 'POST':
         bought = request.POST.get('buy')
+
         if bought:
             show_cart.delete()
+        return redirect('main_app:order_complete')
 
-        return redirect('main_app:auctions')
+
+def search_by_category(request):
+    search_query = request.GET.get('q')
+    results = Category.objects.filter(name__icontains=search_query)
+    # category = Category.objects.all()[0]
+    # prodcat = Product.objects.filter(['category'])
+
+    return render(request, 'main_app/search.html', context={'results': results } )
 
 
-def search_by_category(request, pk):
-    product = Product.objects.filter(category=pk)
+def delete_product(request, pk):
+    product = Product.objects.get(id=pk)
 
-    return render(request, 'main_app/search.html', context={'product':product})
+    if request.method == 'GET':
+        return render(request, 'main_app/delete_product.html', context={'product': product})
+
+    if request.method == 'POST':
+        confirm = request.POST.get('confirm')
+        if confirm:
+            product.delete()
+
+    return redirect('main_app:user_products')
+
+
+# def remove_item(request):
+#     cart = get_user_shopping_cart(request)
+#     show_cart = ShoppingCartItem.objects.filter(cart_id=cart)
+#     cart_item = ShoppingCartItem.objects.get(product_item=product, cart_id=cart)
+#     if request.method == 'POST':
+#         remove = request.POST.get('buy')
+#         if remove:
+#             product.quantity += cart_item.qty
+#             cart_item.qty = 0
+#             product.save()
+#             cart_item.delete()
+#
+#     return redirect('main_app:auctions')
+
+

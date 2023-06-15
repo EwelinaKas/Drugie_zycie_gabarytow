@@ -1,0 +1,26 @@
+{% extends 'accounts/header.html' %}
+
+{% block title %} Lista produktów {% endblock title %}
+
+{% block content %}
+
+<ul>
+{% for prod in results %}
+
+
+<li style="list-style-type: none">
+{{prod}}
+</li>
+{% endfor %}
+</ul>
+
+
+
+{% if not results %}
+
+Nie znaleźliśmy tego czego szukasz :(
+
+{% endif %}
+
+
+{% endblock %}

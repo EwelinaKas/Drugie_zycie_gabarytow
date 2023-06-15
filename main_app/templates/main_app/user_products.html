@@ -6,8 +6,11 @@
 
 {% for prod in product %}
 
+<ul style="list-style-type: none">
+<li>
 {{prod}}<a href="{% url 'main_app:update_product' prod.id %}"><button>Update product details</button></a>
-
+        <a href="{% url 'main_app:delete_product' prod.id %}"><button>Delete product</button></a>
+</li>
 {% endfor %}
-
+</ul>
 {% endblock %}

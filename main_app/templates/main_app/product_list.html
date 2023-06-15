@@ -3,28 +3,49 @@
 {% block title %} Lista produktów {% endblock title %}
 
 {% block content %}
-
+<div>
 <h2>Lista produktów </h2>
-
-<div style="margin-top: 2cm">
-<ol>
-{% for product in products %}
-{{product.name}}<a href="{% url 'main_app:product_detail_view' product.id %}"><button>Details</button></a>
-{{product.quantity}}
-
-<li>
-  {{product.price}} PLN
-</li>
-{% endfor %}
-</ol>
 </div>
 
 
+<div style="margin-top: 2cm; font-size: large">
+<ul style="list-style-type: none">
+{% for product in products %}
+{{product.name}}
+Ilość: {{product.quantity}}
+<a href="{% url 'main_app:product_detail_view' product.id %}"><button>Details</button></a>
+<li>Cena: {{product.price}} PLN
+</li>
+    <li>
+    {% if product.photo %}
+<img src="{{product.photo.url}}" style="max-width: 1cm; max-height: 1cm; position: revert">
+</li>
+{% endif %}
+{% endfor %}
+</ul>
+</div>
+
+
+<div style="padding: 1cm; list-style-type: none">
+<li >
 <a href="{% url 'main_app:add' %}"><button type="submit">Add product </button></a>
+    </li>
+<li >
 <a href="{% url 'main_app:home' %}"><button>Back to main</button></a>
+    </li>
+<li >
 <a href="{% url 'main_app:user_products' %}"><button>Your products</button></a>
+   </li>
 
-<a href="{% url 'main_app:search' %}"><button>Szukaj</button></a>
+</div>
 
+
+
+<form action="{% url 'main_app:search' %}" role="search">
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Search" name="q" value="{{ search_query }}">
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>
 
 {% endblock %}
