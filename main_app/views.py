@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from main_app.models import Product, ShoppingCart, ShoppingCartItem
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from .forms import AddProduct
 from decimal import Decimal
 
@@ -19,6 +20,8 @@ def auction_view(request):
 
 def product_detail_view(request, pk):
     product = Product.objects.get(id=pk)
+    if product.quantity == 0:
+        messages.info(request, 'Przykro nam, aktualnie brak tego produktu')
     return render(request, 'main_app/product_detail.html', context={'product': product})
 
 
@@ -57,6 +60,7 @@ def add_to_shopping_cart(request, pk):
 
     try:
         cart_item = ShoppingCartItem.objects.get(product_item=product, cart_id=cart)
+
         product.quantity -= 1
         product.save()
 
@@ -125,3 +129,8 @@ def buy_now(request):
 
         return redirect('main_app:auctions')
 
+
+def search_by_category(request, pk):
+    product = Product.objects.filter(category=pk)
+
+    return render(request, 'main_app/search.html', context={'product':product})
