@@ -1,17 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-
 {% extends 'accounts/header.html' %}
 
 
 
-{% block title %} Shopping cart {% endblock title %}
+{% block title %} Order complete {% endblock title %}
 
 {% block content %}
 
+{% if show_cart %}
+
+NA PEWNO CHCESZ ZREZYGNOWAĆ Z TYCH PRZEDMIOTÓW?
+{% for product in show_cart %}
+{{product}}<a href="#"><button>Delete product</button></a>
+{% endfor%}
+
+
+{% else %}
 <H2> GRATULACJE, ZAKUPY PRZEBIEGŁY POMYŚLNIE, ZAPRSZAMY PONOWNIE</H2>
-
-
+{% endif %}
 
 {% endblock %}
-</html>

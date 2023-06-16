@@ -6,6 +6,7 @@ from .forms import AddProduct
 from decimal import Decimal
 
 
+
 def home(request):
     return render(request,
                   'main_app/home.html')
@@ -52,7 +53,7 @@ def get_user_shopping_cart(request):
             cart = ShoppingCart(user_id=request.user)
             cart.save()
 
-    return cart
+        return cart
 
 
 @login_required
@@ -63,16 +64,16 @@ def add_to_shopping_cart(request, pk):
 
     try:
         cart_item = ShoppingCartItem.objects.get(product_item=product, cart_id=cart)
-        product.quantity -= 1
-        product.save()
-        if cart_item in show_cart:
+        if cart_item.qty < cart_item.product_item.quantity:
+            cart_item.product_item.quantity -= 1
             cart_item.qty += 1
+        cart_item.product_item.save()
         cart_item.save()
 
     except ShoppingCartItem.DoesNotExist:
         cart_item = ShoppingCartItem.objects.create(product_item=product, cart_id=cart)
-        product.quantity -= 1
-        product.save()
+        cart_item.product_item.quantity -= 1
+        cart_item.product_item.save()
         cart_item.save()
 
     context = {'cart': cart, 'product': product, 'cart_item': cart_item, 'show_cart': show_cart}
@@ -81,18 +82,23 @@ def add_to_shopping_cart(request, pk):
 
 @login_required
 def cart_view(request):
+
     cart = get_user_shopping_cart(request)
     show_cart = ShoppingCartItem.objects.filter(cart_id=cart)
     order_total = Decimal(0.0)
     buy = buy_now(request)
+    total_quantity = 0
     if buy:
-        return render(request, 'main_app/order_complete.html')
+        return render(request, 'main_app/order_complete.html', context={'show_cart':show_cart})
 
     for item in show_cart:
         order_total += item.product_item.price * item.qty
 
+    for quantity in show_cart:
+        total_quantity += quantity.qty
+
     return render(request, 'main_app/cart_view.html',
-                  context={'show_cart': show_cart, 'order_total': order_total})
+                  context={'show_cart': show_cart, 'order_total': order_total, 'total_quantity': total_quantity})
 
 
 @login_required
@@ -118,7 +124,6 @@ def buy_now(request):
 
     cart = get_user_shopping_cart(request)
     show_cart = ShoppingCartItem.objects.filter(cart_id=cart)
-
     if request.method == 'POST':
         bought = request.POST.get('buy')
 
@@ -148,19 +153,35 @@ def delete_product(request, pk):
     return redirect('main_app:user_products')
 
 
-# def remove_item(request):
-#     cart = get_user_shopping_cart(request)
-#     show_cart = ShoppingCartItem.objects.filter(cart_id=cart)
-#     cart_item = ShoppingCartItem.objects.get(product_item=product, cart_id=cart)
-#     if request.method == 'POST':
-#         remove = request.POST.get('buy')
-#         if remove:
-#             product.quantity += cart_item.qty
-#             cart_item.qty = 0
-#             product.save()
-#             cart_item.delete()
-#
-#     return redirect('main_app:auctions')
+def cart_remove(request, pk):
+    cart = get_user_shopping_cart(request)
+    product = Product.objects.get(id=pk)
+    cart_item = ShoppingCartItem.objects.get(product_item=product, cart_id=cart)
+    if cart_item.qty > 0:
+        cart_item.qty -= 1
+        cart_item.save()
+        cart_item.product_item.quantity += 1
+        cart_item.product_item.save()
+
+    if cart_item.qty == 0:
+        cart_item.delete()
+    return redirect("main_app:cart_view")
+
+
+def update_cart(request, pk):
+
+    cart = get_user_shopping_cart(request)
+    product = Product.objects.get(id=pk)
+    cart_item = ShoppingCartItem.objects.get(product_item=product, cart_id=cart)
+    if cart_item.product_item.quantity > 0:
+        cart_item.product_item.quantity -= 1
+        cart_item.qty += 1
+        cart_item.save()
+        cart_item.product_item.save()
+    else:
+        messages.error(request, 'Sorry, there is no more this product in our auction right now')
+
+    return redirect('main_app:cart_view')
 
 
 # def categories_search(request):
