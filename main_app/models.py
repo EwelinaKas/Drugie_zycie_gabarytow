@@ -27,13 +27,13 @@ class Product(models.Model):
             return Product.objects.all()
 
 
-
 class Category(models.Model):
     parent_category_id = models.ForeignKey('Category', on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
+
     @staticmethod
     def get_all_categories():
         return Category.objects.all()
@@ -54,7 +54,7 @@ class ShoppingCartItem(models.Model):
     def __str__(self):
         return str(self.product_item)
 
-
+# NOW THIS MODELS BELOW ARE UNUSED
 class Variation(models.Model):
 
     VAR_CHOICES = (('materiał', 'materiał'), ('rozmiar', 'rozmiar'))

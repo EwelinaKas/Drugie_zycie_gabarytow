@@ -4,26 +4,39 @@
 
 {% block content %}
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-
 <h2>Products in your basket</h2>
 
 <div>
 
+{% for item in show_cart %}
 
-    <form method="POST">
-      {% csrf_token %}
-        <input type="submit" name="buy" value="BUY NOW" style="margin-left: 3cm">
-        <input type="submit" name="remove" value="CANCEL">
-    </form>
+    <li>PRODUCT: {{item}}</li>
+     <li>QUANTITY: {{item.qty}}</li>
 
+    <a href="{% url 'main_app:cart_remove' item.product_item.id %}"><button type="submit">Remove item</button></a>
+    <a href="{% url 'main_app:update_cart' item.product_item.id%}"><button>Add +1</button></a>
 
-    {% for item in show_cart %}
-    <li> {{item}}</li>
-    {{item.qty}}
-    {% endfor %}
+{% endfor %}
 
 </div>
+
+<form method="POST">
+  {% csrf_token %}
+    <input type="submit" name="buy" value="BUY NOW" style="margin-left: 3cm">
+</form>
+
+<a href="{% url 'main_app:auctions'%}"><button>Go back to shopping</button></a>
+
+<!--INFO WHEN PRODUCT IS OUT OF STOCK-->
+{% for info in messages %}
+{{info}}
+{% endfor %}
+
+
+<!--WHEN BASKET IS EMPTY-->
+{% if total_quantity == 0 %}
+YOUR BASKET IS EMPTY
+{% endif %}
 
 
 <div style="padding: 25px; text-align: center; position: absolute; margin-top: 7cm">

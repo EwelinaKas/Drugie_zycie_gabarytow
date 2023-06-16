@@ -1,18 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-
 {% extends 'accounts/header.html' %}
 
-{% block title %} Shopping cart {% endblock title %}
+{% block title %} Added to cart {% endblock title %}
 
 {% block content %}
 
-<h2 style="text-align: center">Dodane do koszyka</h2>
+<h2 style="text-align: center">Added to shopping basket</h2>
 
 <div>
 {% for item in show_cart %}
 
    <li> {{item}}</li>
+    <li> {{item.qty}}</li>
 
 {% endfor %}
 </div>
@@ -21,4 +19,4 @@
 <a href="{% url 'main_app:auctions' %}"><button type="submit" > Wróć do listy produktów </button></a>
 
 {% endblock %}
-</html>
+
