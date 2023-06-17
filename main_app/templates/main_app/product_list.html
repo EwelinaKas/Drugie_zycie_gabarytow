@@ -1,61 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
 {% extends 'accounts/header.html' %}
 
-{% block title %} Lista produktów {% endblock title %}
+{% block title %} Product list {% endblock title %}
 
 {% block content %}
-
-<h2>Lista produktów </h2>
-
-<!--WYSZUKIWANIE PO KATEGORIACH-->
-<div style="list-style-type: none">
-{% for category in categories %}
-<li><a href="/auctions/?category={{category.id}}">{{category.name}}</a></li>
-{% endfor %}
-
-{% for product in products %}
-{% endfor %}
+<body>
+<nav>
+<div class="navigation-left-box">
+    <ul class="navigation-auctions-box">
+        <div class="navigation-auctions">
+            <div class="navigation-title"><a>Product list</a></div>
+            <!--WYSZUKIWANIE PO KATEGORIACH-->
+            <div class="category" style="list-style-type: none">
+                {% for category in categories %}
+                <li><a href="/auctions/?category={{category.id}}">{{category.name}}</a></li>
+                {% endfor %}
+                {% for product in products %}
+                {% endfor %}
+            </div>
+            <div class="search-box">
+            <!--WYSZUKIWANIE PO NAZWIE PRODUKTU-->
+                <form action="{% url 'main_app:search' %}" role="search">
+                    <label for="inp" class="search-form">
+                        <input type="text" placeholder="Search" name="q" value="{{ search_query }}">
+                        <span class="focus-bg"></span>
+                    </label>
+                    <button class="search-btn" type="submit">Submit</button>
+                </form>
+            </div>
+            <div class="logout-btn">
+                <a href="{% url 'accounts:logout' %}">
+                <button class="logout-btn" type="submit">Log out</button></a>
+            </div>
+        </div>
+    </ul>
 </div>
+</nav>
 
+<div class="auctions-structor">
+    <div class="auctions-btn" style="padding: 1cm; list-style-type: none">
+            <a href="{% url 'main_app:add' %}">
+                <button class="auction-btn" type="submit">Add product </button></a>
 
-<!--LISTA WSZYSTKICH PRODUKTÓW-->
-<div style="margin-top: 2cm; font-size: large">
-<ul style="list-style-type: none">
-{% for product in products %}
-{{product.name}}
-Ilość: {{product.quantity}}
-<a href="{% url 'main_app:product_detail_view' product.id %}"><button>Details</button></a>
-<li>Cena: {{product.price}} PLN</li>
+            <a href="{% url 'main_app:home' %}">
+                <button class="auction-btn">Back to main</button></a>
 
- <li>  {% if product.photo %}
-<img src="{{product.photo.url}}" style="max-width: 1cm; max-height: 1cm; position: revert">
-</li>
-
-{% endif %}
-{% endfor %}
-</ul>
-</div>
-
-
-<div style="padding: 1cm; list-style-type: none">
-<li >
-<a href="{% url 'main_app:add' %}"><button type="submit">Add product </button></a>
-    </li>
-<li >
-<a href="{% url 'main_app:home' %}"><button>Back to main</button></a>
-    </li>
-<li >
-<a href="{% url 'main_app:user_products' %}"><button>Your products</button></a>
-   </li>
-
-</div>
-
-
-<!--WYSZUKIWANIE PO NAZWIE PRODUKTU-->
-<form action="{% url 'main_app:search' %}" role="search">
-    <div class="form-group">
-        <input type="text" class="form-control" placeholder="Search" name="q" value="{{ search_query }}">
+            <a href="{% url 'main_app:user_products' %}">
+                <button class="auction-btn">Your products</button></a>
     </div>
-    <button type="submit" class="btn btn-default">Submit</button>
-</form>
+        <!--LISTA WSZYSTKICH PRODUKTÓW-->
+    <div class="auction" style="margin-top: 2cm; font-size: large">
+        <ul style="list-style-type: none">
+        {% for product in products %}
+        {{product.name}}
+        Quantity: {{product.quantity}}
+            <a href="{% url 'main_app:product_detail_view' product.id %}">
+                <button class="details-btn">Details</button>
+            </a>
+            <div class="auction-price">
+                <li>Price: {{product.price}} PLN</li></div>
+            <div class="auction-picture">
+                <li>{% if product.photo %}
+                    <img class="auction-img" src="{{product.photo.url}}"
+                        style="max-width: 1cm; max-height: 1cm; position: revert">
+                </li>
+            </div>
+        {% endif %}
+        {% endfor %}
+        </ul>
+    </div>
+</div>
 
+</body>
+</html>
 {% endblock %}
