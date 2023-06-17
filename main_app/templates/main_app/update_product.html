@@ -8,10 +8,17 @@
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{update_form.as_p}}
-
     <input type="submit" value="Update">
-
 </form>
+
+{% for message in messages %}
+{% if message %}
+{{message}} <button type="button" onclick="history.back()"> Back to update form</button>
+{% endif %}
+
+{% endfor %}
+
+
 
 
 

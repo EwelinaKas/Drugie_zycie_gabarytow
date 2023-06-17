@@ -10,13 +10,13 @@
 {% for item in show_cart %}
 
    <li> {{item}}</li>
-    <li> {{item.qty}}</li>
+    <li> Quantity: {{item.qty}}</li>
 
 {% endfor %}
 </div>
 
-<a href="{% url 'main_app:cart_view' %}"><button type="submit" > Przejdź do realizacji transakcji </button></a>
-<a href="{% url 'main_app:auctions' %}"><button type="submit" > Wróć do listy produktów </button></a>
+<a href="{% url 'main_app:cart_view' %}"><button type="submit" >Go to transaction </button></a>
+<a href="{% url 'main_app:auctions' %}"><button type="submit" > Back to product list </button></a>
 
 {% endblock %}
 

@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
-from main_app.models import Product, ShoppingCart, ShoppingCartItem, Category
+from main_app.models import Product, ShoppingCart, ShoppingCartItem, Category, Order, OrderItem
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import AddProduct
 from decimal import Decimal
-
+from django.core.exceptions import ObjectDoesNotExist
 
 
 def home(request):
@@ -13,7 +13,6 @@ def home(request):
 
 
 def auction_view(request):
-    products = Product.objects.all()
     categories = Category.get_all_categories()
     category_id = request.GET.get('category')
     if category_id:
@@ -27,7 +26,7 @@ def auction_view(request):
 def product_detail_view(request, pk):
     product = Product.objects.get(id=pk)
     if product.quantity == 0:
-        messages.info(request, 'Przykro nam, aktualnie brak tego produktu')
+        messages.info(request, 'Sorry, this product is out of stock')
     return render(request, 'main_app/product_detail.html', context={'product': product})
 
 
@@ -61,7 +60,6 @@ def add_to_shopping_cart(request, pk):
     cart = get_user_shopping_cart(request)
     product = Product.objects.get(id=pk)
     show_cart = ShoppingCartItem.objects.filter(cart_id=cart)
-
     try:
         cart_item = ShoppingCartItem.objects.get(product_item=product, cart_id=cart)
         if cart_item.qty < cart_item.product_item.quantity:
@@ -82,14 +80,13 @@ def add_to_shopping_cart(request, pk):
 
 @login_required
 def cart_view(request):
-
     cart = get_user_shopping_cart(request)
     show_cart = ShoppingCartItem.objects.filter(cart_id=cart)
     order_total = Decimal(0.0)
     buy = buy_now(request)
     total_quantity = 0
     if buy:
-        return render(request, 'main_app/order_complete.html', context={'show_cart':show_cart})
+        return render(request, 'main_app/order_complete.html', context={'show_cart': show_cart})
 
     for item in show_cart:
         order_total += item.product_item.price * item.qty
@@ -105,7 +102,7 @@ def cart_view(request):
 def users_products(request):
 
     product = Product.objects.filter(user=request.user)
-    return render(request, 'main_app/user_products.html', context={'product':product})
+    return render(request, 'main_app/user_products.html', context={'product': product})
 
 
 def update_product(request, pk):
@@ -116,16 +113,25 @@ def update_product(request, pk):
                       context={'update_form': update_form, 'product_to_update': product_to_update})
 
     if request.method == 'POST':
-        update_form.save()
+        if update_form.is_valid():
+            update_form.save()
+        else:
+            messages.error(request, "You can't add negative value")
+            return render(request, 'main_app/update_product.html')
         return redirect('main_app:auctions')
 
 
 def buy_now(request):
-
+    order_init = start_order(request)
     cart = get_user_shopping_cart(request)
     show_cart = ShoppingCartItem.objects.filter(cart_id=cart)
     if request.method == 'POST':
         bought = request.POST.get('buy')
+
+        for order_item in show_cart:
+            ord_itm = OrderItem.objects.create(order=order_init, product=order_item.product_item.name,
+                                               quantity=order_item.qty)
+            ord_itm.save()
 
         if bought:
             show_cart.delete()
@@ -135,7 +141,6 @@ def buy_now(request):
 def search_by_name(request):
     search_query = request.GET.get('q')
     results = Product.objects.filter(name__icontains=search_query)
-
     return render(request, 'main_app/search.html', context={'results': results})
 
 
@@ -184,14 +189,17 @@ def update_cart(request, pk):
     return redirect('main_app:cart_view')
 
 
-# def categories_search(request):
-#
-#     categories = Category.get_all_categories()
-#     category_id = request.GET.get('category')
-#     if category_id:
-#         products = Product.get_all_products_by_category_id(category_id)
-#     else:
-#         products = Product.objects.all()
-#     return render(request, 'main_app/categories.html', context={'categories': categories, 'products':products})
+def start_order(request):
+    try:
+        order = Order.objects.get(customer=request.user)
+        order.save()
+    except ObjectDoesNotExist:
+        order = Order.objects.create(customer=request.user)
+        order.save()
+    return order
 
 
+def orders(request):
+    order = Order.objects.get(customer=request.user)
+    order_view = OrderItem.objects.filter(order=order)
+    return render(request, 'main_app/orders.html', context={'order_view': order_view})

@@ -6,16 +6,9 @@
 
 {% block content %}
 
-{% if show_cart %}
+<H2> CONGRATULATIONS, YOUR ORDER IS COMPLETED</H2>
 
-NA PEWNO CHCESZ ZREZYGNOWAĆ Z TYCH PRZEDMIOTÓW?
-{% for product in show_cart %}
-{{product}}<a href="#"><button>Delete product</button></a>
-{% endfor%}
+<a href="{% url 'main_app:orders' %}"><button>Order details</button></a>
 
-
-{% else %}
-<H2> GRATULACJE, ZAKUPY PRZEBIEGŁY POMYŚLNIE, ZAPRSZAMY PONOWNIE</H2>
-{% endif %}
 
 {% endblock %}
