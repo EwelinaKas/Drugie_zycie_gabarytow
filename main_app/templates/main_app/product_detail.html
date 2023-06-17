@@ -1,6 +1,6 @@
 {% extends 'accounts/header.html' %}
 
-{% block title %} Szczegóły produktu {% endblock title %}
+{% block title %} Product details {% endblock title %}
 
 {% block content %}
 
@@ -25,8 +25,8 @@
 
 
 
-<a href="{% url 'main_app:auctions' %}"><button type="submit">Wróć do listy wszystkich produktów</button></a>
-<button type="button" onclick="history.back()"> Wróć do listy wyszukiwanych</button>
+<a href="{% url 'main_app:auctions' %}"><button type="submit">Back to all products</button></a>
+<button type="button" onclick="history.back()"> Back to search list</button>
 
 
 {% endblock %}
