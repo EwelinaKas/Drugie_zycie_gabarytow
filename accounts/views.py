@@ -29,7 +29,7 @@ def login_request(request):
 
         if user is not None:
             login(request, user)
-            return redirect('main_app:home')
+            return redirect('main_app:auctions')
         else:
             messages.info(request, 'Wrong username or password')
 
