@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from main_app.models import Product, ShoppingCart, ShoppingCartItem, Category, Order, OrderItem
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -24,7 +24,7 @@ def auction_view(request):
 
 
 def product_detail_view(request, pk):
-    product = Product.objects.get(id=pk)
+    product = get_object_or_404(Product, id=pk)
     if product.quantity == 0:
         messages.info(request, 'Sorry, this product is out of stock')
     return render(request, 'main_app/product_detail.html', context={'product': product})
@@ -58,7 +58,7 @@ def get_user_shopping_cart(request):
 @login_required
 def add_to_shopping_cart(request, pk):
     cart = get_user_shopping_cart(request)
-    product = Product.objects.get(id=pk)
+    product = get_object_or_404(Product, id=pk)
     show_cart = ShoppingCartItem.objects.filter(cart_id=cart)
     try:
         cart_item = ShoppingCartItem.objects.get(product_item=product, cart_id=cart)
@@ -106,7 +106,7 @@ def users_products(request):
 
 
 def update_product(request, pk):
-    product_to_update = Product.objects.get(id=pk)
+    product_to_update = get_object_or_404(Product, id=pk)
     update_form = AddProduct(request.POST or None, request.FILES or None, instance=product_to_update)
     if request.method == 'GET':
         return render(request, 'main_app/update_product.html',
@@ -145,7 +145,7 @@ def search_by_name(request):
 
 
 def delete_product(request, pk):
-    product = Product.objects.get(id=pk)
+    product = get_object_or_404(Product, id=pk)
 
     if request.method == 'GET':
         return render(request, 'main_app/delete_product.html', context={'product': product})
@@ -160,7 +160,7 @@ def delete_product(request, pk):
 
 def cart_remove(request, pk):
     cart = get_user_shopping_cart(request)
-    product = Product.objects.get(id=pk)
+    product = get_object_or_404(Product, id=pk)
     cart_item = ShoppingCartItem.objects.get(product_item=product, cart_id=cart)
     if cart_item.qty > 0:
         cart_item.qty -= 1
@@ -176,7 +176,7 @@ def cart_remove(request, pk):
 def update_cart(request, pk):
 
     cart = get_user_shopping_cart(request)
-    product = Product.objects.get(id=pk)
+    product = get_object_or_404(Product, id=pk)
     cart_item = ShoppingCartItem.objects.get(product_item=product, cart_id=cart)
     if cart_item.product_item.quantity > 0:
         cart_item.product_item.quantity -= 1
