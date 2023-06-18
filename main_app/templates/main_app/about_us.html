@@ -1,0 +1,36 @@
+{% extends 'accounts/header.html' %}
+
+{% block title %} Product list {% endblock title %}
+
+{% block content %}
+
+
+
+<ol style="list-style-type: none; font-size: large">
+  <h2 style="text-align: center; position: static;"> Założenia projektu:</h2>
+  <li>Możliwość założenia konta użytkownika</li>
+<li>Możliwość wystawiania produktów na sprzedaż</li>
+<li>Możliwość dodania produktów do koszyka</li>
+
+  <h3>Widoczne dla wszystkich:</h3>
+<li>widok rejestracji</li>
+<li>widok logowania</li>
+<li>widok listy aukcji</li>
+<li>widok detalu aukcji</li>
+
+<h3>Widoczne dla zalogowanych użytkowników:</h3>
+<li>widok formularza dodawania aukcji</li>
+<li>widok formularza edycji aukcji</li>
+<li>widok koszyka</li>
+<li>na widoku detalu aukcji przycisk dodaj do koszyka</li>
+
+<h3>Opcjonalnie:</h3>
+<li>widok produktów po kategoriach</li>
+<li>wyszukiwanie produktów po nazwie</li>
+<li>tworzenie zamówienia</li>
+<li>widok listy zamówionych przedmiotów</li>
+</ol>
+
+
+
+{% endblock %}

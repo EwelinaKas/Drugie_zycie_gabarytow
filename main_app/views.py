@@ -203,3 +203,8 @@ def orders(request):
     order = Order.objects.get(customer=request.user)
     order_view = OrderItem.objects.filter(order=order)
     return render(request, 'main_app/orders.html', context={'order_view': order_view})
+
+
+
+def about_us(request):
+    return render(request, 'main_app/about_us.html')
