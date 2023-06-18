@@ -283,6 +283,7 @@ body {
 .navigation-left-box .navigation-auctions-box .navigation-auctions .navigation-title {
   text-align: left;
   font-size: 20px;
+  font-weight: bold;
 }
 
 .navigation-left-box {
@@ -304,15 +305,12 @@ body {
 }
 
 .auctions-structor {
-  position: fixed;
+  position: static;
   width: 100%;
   height: 100%;
-  right: 0;
-  left: 200px;
-  top: 50px;
 }
 
-.auctions-structor .auction .details-btn {
+.auctions-structor .auction-loop .auction .details-btn {
   background-color: #0000005e;
   font-family: 'Raleway', sans-serif;
   border: 0;
@@ -324,6 +322,20 @@ body {
   opacity: 1;
   visibility: visible;
   -webkit-transition: all 0.3s ease;
+  margin-bottom: 80px;
+}
+
+.auctions-structor .auction-loop .auction img {
+  max-width: 400px;
+  max-height: 400px;
+}
+
+.auctions-structor .auction-loop .auction li {
+  font-size: 40px;
+}
+
+.auctions-structor .auction-loop .auction a {
+  font-size: 20px;
 }
 
 .auctions-structor .auction .details-btn:hover {
@@ -414,4 +426,54 @@ body {
   background-color: rgba(0, 0, 0, 0.8);
 }
 /* AUCTIONS END */
+
+/* CART VIEW */
+.cart-structor .empty-basket {
+  width: 100%;
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+.cart-structor .goback-btn {
+  background-color: #0000005e;
+  color: rgb(255, 255, 255);
+  width: 100%;
+  height: 40px;
+  border: 0;
+  margin-top: 20px;
+  font-size: 15px;
+  text-align: center;
+  cursor: pointer;
+  opacity: 1;
+  visibility: visible;
+  -webkit-transition: all 0.3s ease;
+  font-family: 'Raleway', sans-serif;
+}
+
+.goback-btn:hover {
+  transition: all 0.3s ease;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.cart-structor .buy-btn {
+  background-color: #0000005e;
+  color: rgb(255, 255, 255);
+  width: 100%;
+  height: 40px;
+  border: 0;
+  margin-top: 20px;
+  font-size: 15px;
+  text-align: center;
+  cursor: pointer;
+  opacity: 1;
+  visibility: visible;
+  -webkit-transition: all 0.3s ease;
+  font-family: 'Raleway', sans-serif;
+}
+
+.buy-btn:hover {
+  transition: all 0.3s ease;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+/* CART VIEW END */
 
