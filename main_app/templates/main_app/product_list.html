@@ -10,15 +10,6 @@
 <div class="navigation-left-box">
     <ul class="navigation-auctions-box">
         <div class="navigation-auctions">
-            <div class="navigation-title"><a>Product list</a></div>
-            <!--WYSZUKIWANIE PO KATEGORIACH-->
-            <div class="category" style="list-style-type: none">
-                {% for category in categories %}
-                <li><a href="/auctions/?category={{category.id}}">{{category.name}}</a></li>
-                {% endfor %}
-                {% for product in products %}
-                {% endfor %}
-            </div>
             <div class="search-box">
             <!--WYSZUKIWANIE PO NAZWIE PRODUKTU-->
                 <form action="{% url 'main_app:search' %}" role="search">
@@ -28,9 +19,20 @@
                     </label>
                     <button class="search-btn" type="submit">Submit</button>
                 </form>
-                <a href="{% url 'accounts:logout' %}">
-                <button class="logout-btn" type="submit">Log out</button></a>
+
             </div>
+            <div class="navigation-title"><a>Product list</a></div>
+            <!--WYSZUKIWANIE PO KATEGORIACH-->
+            <div class="category" style="list-style-type: none">
+                {% for category in categories %}
+                <li><a href="/auctions/?category={{category.id}}">{{category.name}}</a></li>
+                {% endfor %}
+                {% for product in products %}
+                {% endfor %}
+            </div>
+            <!-- LOG OUT BUTTON -->
+            <a href="{% url 'accounts:logout' %}">
+                <button class="logout-btn" type="submit">Log out</button></a>
         </div>
     </ul>
 </div>
