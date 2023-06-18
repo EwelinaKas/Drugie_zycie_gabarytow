@@ -1,6 +1,6 @@
 {% extends 'accounts/header.html' %}
 
-{% block title %} Wyszukane produkty {% endblock title %}
+{% block title %} Searching results {% endblock title %}
 
 {% block content %}
 
@@ -15,7 +15,8 @@
 
 {% if not results %}
 
-Nie znaleźliśmy tego czego szukasz :(
+Sorry, we didn't find this product :(
+<button type="button" onclick="history.back()"> Back to product list</button>
 
 {% endif %}
 
